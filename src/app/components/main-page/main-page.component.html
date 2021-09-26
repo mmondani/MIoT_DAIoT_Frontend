@@ -12,7 +12,7 @@
                 <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
                     <button class="dropdown-item">Perfil</button>
                     <button class="dropdown-item">Acerca de</button>
-                    <button class="dropdown-item">Cerrar sesión </button>
+                    <button class="dropdown-item" (click)="logout()">Cerrar sesión </button>
                 </div>
                 </div>
             </li>   
@@ -20,3 +20,5 @@
         </li>
     </ul>
 </nav>
+
+<router-outlet></router-outlet>

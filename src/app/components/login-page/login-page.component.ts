@@ -20,7 +20,7 @@ export class LoginPageComponent implements OnInit{
   }
   ngOnInit(): void {
     if (this.loginService.isLoggedIn()) {
-      this.router.navigate(["/"]);
+      this.router.navigate(["/board"]);
     }
   }
 

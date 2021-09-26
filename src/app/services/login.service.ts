@@ -35,7 +35,8 @@ export class LoginService {
         let token = response.body.token.split(" ")[1];
         console.log("Login OK. Token: " + token);
         localStorage.setItem("token", token);
-        this.router.navigate(["/"]);
+        localStorage.setItem("email", email);
+        this.router.navigate(["/board"]);
       }
     }
     catch(error) {
@@ -46,6 +47,8 @@ export class LoginService {
 
   public logout () {
     localStorage.removeItem("token");
+    localStorage.removeItem("email");
+    this.router.navigate(["/login"]);
   }
 
   public isLoggedIn (): boolean {

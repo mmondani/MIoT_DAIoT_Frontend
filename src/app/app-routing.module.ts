@@ -10,7 +10,7 @@ const routes: Routes = [
     component: LoginPageComponent,
   },
   {
-    path: '',
+    path: 'board',
     component: MainPageComponent,
     canActivate: [AuthGuard]
   },

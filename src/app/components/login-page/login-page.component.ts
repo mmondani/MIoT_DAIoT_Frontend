@@ -32,7 +32,8 @@ export class LoginPageComponent implements OnInit{
     }
   }
 
-  public forgotPassword() {
+  public onForgotPassword() {
     console.log("forgot password")
+    // TODO
   }
 }

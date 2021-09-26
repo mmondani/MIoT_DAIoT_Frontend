@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'daiot';
+  public isCollapsed: boolean = false;
+
+  public toggleCollapse () {
+    this.isCollapsed = !this.isCollapsed;
+    console.log(this.isCollapsed);
+  }
 }

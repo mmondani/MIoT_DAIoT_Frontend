@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { throwError } from 'rxjs';
 
 
 interface LoginResponse {
@@ -15,7 +16,7 @@ interface LoginResponse {
 })
 export class LoginService {
 
-  private URL = "http://192.168.1.101:3000"
+  private URL = "http://localhost:3000"
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -39,6 +40,7 @@ export class LoginService {
     }
     catch(error) {
       console.log(error);
+      throw new Error("");
     }
   }
 

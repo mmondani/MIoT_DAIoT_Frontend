@@ -6,6 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainPageModule } from './components/main-page/main-page.module';
+import { LoginPageModule } from './components/login-page/login-page.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { MainPageModule } from './components/main-page/main-page.module';
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    MainPageModule
+    MainPageModule,
+    LoginPageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

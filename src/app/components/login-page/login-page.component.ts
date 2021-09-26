@@ -9,6 +9,9 @@ import { LoginService } from '../../services/login.service';
 })
 export class LoginPageComponent implements OnInit{ 
 
+  public email:string = "";
+  public password:string = "";
+
   constructor (private loginService: LoginService, private router: Router) {
 
   }
@@ -16,5 +19,13 @@ export class LoginPageComponent implements OnInit{
     if (this.loginService.isLoggedIn()) {
       this.router.navigate(["/"]);
     }
+  }
+
+  public async onSubmit() {
+    await this.loginService.login(this.email, this.password);
+  }
+
+  public forgotPassword() {
+    console.log("forgot password")
   }
 }

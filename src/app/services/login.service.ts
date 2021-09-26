@@ -15,7 +15,7 @@ interface LoginResponse {
 })
 export class LoginService {
 
-  private URL = "192.168.1.101"
+  private URL = "http://192.168.1.101:3000"
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -24,15 +24,21 @@ export class LoginService {
       observe: 'response' as const
     };
 
-    let response = await this.http.post<LoginResponse> (
-                                  this.URL + "/login",
-                                  {email: email, password: password},
-                                  options).toPromise();
-    
-    if (response.status == 200 && response.body) {
-      console.log("Login OK. Token: " + response.body.token);
-      localStorage.setItem("token", response.body.token);
-      this.router.navigate(["/"]);
+    try {
+      let response = await this.http.post<LoginResponse> (
+                                    this.URL + "/login",
+                                    {email: email, password: password},
+                                    options).toPromise();
+
+      if (response.status == 200 && response.body) {
+        let token = response.body.token.split(" ")[1];
+        console.log("Login OK. Token: " + token);
+        localStorage.setItem("token", token);
+        this.router.navigate(["/"]);
+      }
+    }
+    catch(error) {
+      console.log(error);
     }
   }
 
@@ -41,7 +47,6 @@ export class LoginService {
   }
 
   public isLoggedIn (): boolean {
-    return true;
-    //return (localStorage.getItem('token') !== null);
+    return (localStorage.getItem('token') !== null);
   }
 }

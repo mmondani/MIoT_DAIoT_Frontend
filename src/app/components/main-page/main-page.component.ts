@@ -10,7 +10,7 @@ export class MainPageComponent implements OnInit {
 
   constructor(private loginService: LoginService) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
   }
 
   public logout () {

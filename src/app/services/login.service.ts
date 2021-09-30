@@ -32,9 +32,8 @@ export class LoginService {
                                     options).toPromise();
 
       if (response.status == 200 && response.body) {
-        let token = response.body.token.split(" ")[1];
-        console.log("Login OK. Token: " + token);
-        localStorage.setItem("token", token);
+        console.log("Login OK. Token: " + response.body.token);
+        localStorage.setItem("token", response.body.token);
         localStorage.setItem("email", email);
         this.router.navigate(["/board"]);
       }

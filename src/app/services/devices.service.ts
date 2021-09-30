@@ -21,10 +21,11 @@ export class DevicesService {
   constructor(private http: HttpClient) { }
 
   public getDevices(): Promise<Array<Device>> {
+    /*
     return new Promise((resolve, reject) => {
       resolve(this.devices);
-    });
-    /*
+    });*/
+    
     let options = {
       observe: 'response' as const
     };
@@ -35,6 +36,6 @@ export class DevicesService {
         filter(resp => resp.status == 200),
         pluck("body"))
       .toPromise();
-      */
+      
   }
 }

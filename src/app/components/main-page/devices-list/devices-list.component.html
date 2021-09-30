@@ -10,6 +10,7 @@
     <div class="row align-items-center" *ngIf="devicesList.length > 0">
         <div *ngFor="let device of devicesList" class="col-md-4">
             <div class="device-card disable-select" routerLink="./{{device._id}}" (click)=deviceClick(device.nombre)>
+                <div [class]="device.online? 'device-status-online':'device-status-offline'">&#11044; {{device.online? "online":"offline"}}</div>
                 <h3>{{device.nombre}}</h3>
                 <b>Tipo:</b> {{device.tipo}} <br>
                 <b>Empresa:</b> {{device.empresa}}

@@ -1,3 +1,15 @@
+.device-status-online{
+    text-align: right;
+    color: green;
+    font-size: 12px;
+}
+
+.device-status-offline{
+    text-align: right;
+    color: red;
+    font-size: 12px;
+}
+
 .device-card {
     margin-top: 20px;
     border: 1px solid #888888;

@@ -12,10 +12,10 @@ export class DevicesService {
   private URL = "http://localhost:3000";
 
   devices: Array<Device> = [
-    {_id: "1", nombre: "Device 1", tipo: "Termohigrómetro", empresa: "Empresa 1", __v: 0, variables: {}},
-    {_id: "2", nombre: "Device 2", tipo: "Termohigrómetro", empresa: "Empresa 2", __v: 0, variables: {}},
-    {_id: "3", nombre: "Device 3", tipo: "Termohigrómetro", empresa: "Empresa 3", __v: 0, variables: {}},
-    {_id: "4", nombre: "Device 4", tipo: "Termohigrómetro", empresa: "Empresa 4", __v: 0, variables: {}}
+    {_id: "1", nombre: "Device 1", tipo: "Termohigrómetro", empresa: "Empresa 1", __v: 0, online: true, canal1: true, canal2: false, variables: {}},
+    {_id: "2", nombre: "Device 2", tipo: "Termohigrómetro", empresa: "Empresa 2", __v: 0, online: true, canal1: false, canal2: false, variables: {}},
+    {_id: "3", nombre: "Device 3", tipo: "Termohigrómetro", empresa: "Empresa 3", __v: 0, online: false, canal1: true, canal2: false, variables: {}},
+    {_id: "4", nombre: "Device 4", tipo: "Termohigrómetro", empresa: "Empresa 4", __v: 0, online: true, canal1: true, canal2: true, variables: {}}
   ];
 
   constructor(private http: HttpClient) { }

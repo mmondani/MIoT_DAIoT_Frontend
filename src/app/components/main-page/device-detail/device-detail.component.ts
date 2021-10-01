@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DevicesService } from '../../../services/devices.service';
+import { Device } from '../../../services/models/device';
 
 @Component({
   selector: 'app-device-detail',
@@ -8,12 +10,19 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DeviceDetailComponent implements OnInit {
 
-  deviceId: string = "";
+  device: Device;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private devicesService: DevicesService) { }
 
-  ngOnInit(): void {
-    this.deviceId = this.route.snapshot.params["deviceId"];
+  async ngOnInit() {
+    const deviceId = this.route.snapshot.params["deviceId"];
+
+    try {
+      this.device = await this.devicesService.getDevice(deviceId);
+    }
+    catch(err) {
+      console.log(err);
+    }
   }
 
 }

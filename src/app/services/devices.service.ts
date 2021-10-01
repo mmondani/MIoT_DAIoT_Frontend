@@ -38,4 +38,18 @@ export class DevicesService {
       .toPromise();
       
   }
+
+  public getDevice(nombre: string): Promise<Device> {
+    let options = {
+      observe: 'response' as const
+    };
+
+    return this.http
+      .get<Device>(this.URL + "/dispo/" + nombre, options)
+      .pipe(
+        filter(resp => resp.status == 200),
+        pluck("body"))
+      .toPromise();
+      
+  }
 }

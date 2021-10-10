@@ -15,7 +15,7 @@ import { SharedModule } from '../../../shared/shared.module';
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
   ],
   exports: [
     DevicesListComponent

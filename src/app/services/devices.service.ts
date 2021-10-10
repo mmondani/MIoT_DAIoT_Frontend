@@ -90,6 +90,34 @@ export class DevicesService {
       
   }
 
+
+  public getFromToTelemetry(
+    nombre:string, 
+    fromDay: number, 
+    fromMonth: number, 
+    fromYear: number,
+    toDay: number,
+    toMonth: number,
+    toYear: number
+    ): Promise <Array<LogTelemetry>>{
+    let options = {
+      observe: 'response' as const
+    };
+
+    let from = `${fromYear.toString().padStart(4,"0")}-${fromMonth.toString().padStart(2,"0")}-${fromDay.toString().padStart(2,"0")}`;
+    let to = `${toYear.toString().padStart(4,"0")}-${toMonth.toString().padStart(2,"0")}-${toDay.toString().padStart(2,"0")}`;
+
+    console.log(this.URL + "/datos/"+nombre+"/"+from+"/"+to);
+
+    return this.http
+      .get<Array<LogTelemetry>>(this.URL + "/datos/"+nombre+"/"+from+"/"+to, options)
+      .pipe(
+        filter(resp => resp.status == 200),
+        pluck("body"))
+      .toPromise();
+      
+  }
+
   
   public newDevice (device: Device): Promise<void> {
     let options = {

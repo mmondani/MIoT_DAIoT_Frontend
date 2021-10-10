@@ -11,7 +11,8 @@
                     <b >Tipo:</b> {{device.tipo}} <br>
                     <b>Empresa:</b> {{device.empresa}}<br>
                     <b>Temperatura:</b> {{device.ultimaTele.Temperatura}} <br>
-                    <b>Humedad:</b> {{device.ultimaTele.Humedad}}
+                    <b>Humedad:</b> {{device.ultimaTele.Humedad}} <br>
+                    <b>Timestamp:</b> {{device.ultimaTele.ts | timestamp}}
                     <div><b>Canal 1:</b> {{device.canal1==true?'Activado':'Desactivado'}}
                         <button (click)=updateChannel(1,true) *ngIf="device.canal1== false" expand="block"
                             color="danger">Activar

@@ -136,8 +136,9 @@ export class DeviceDetailComponent implements OnInit {
       .subscribe((data: IMqttMessage) => {
         let item = JSON.parse(data.payload.toString());
         if (this.device.nombre == item.Device) {
-          this.device.ultimaHum = item.Valores.Temperatura;
-          this.device.ultimaTemp = item.Valores.Humedad;
+          this.device.ultimaTele.Temperatura = item.Valores.Temperatura;
+          this.device.ultimaTele.Humedad = item.Valores.Humedad;
+          this.device.ultimaTele.ts = item.Valores.ts;
         }
       });
   }

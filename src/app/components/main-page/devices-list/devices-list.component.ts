@@ -79,12 +79,15 @@ export class DevicesListComponent implements OnInit {
         let item = JSON.parse(data.payload.toString());
         this.devicesList.forEach(element => {
           if (element.nombre == item.Device) {
-            element.ultimaHum=item.Valores.Temperatura;
-            element.ultimaTemp=item.Valores.Humedad;
+            element.ultimaTele.Temperatura = item.Valores.Temperatura;
+            element.ultimaTele.Humedad = item.Valores.Humedad;
+            element.ultimaTele.ts = item.Valores.ts;
           }
         });
       });
   }
+
+  
   private subscribeToStatus() {
     this.subscription = this.eventMqtt.topic('device/status')
       .subscribe((data: IMqttMessage) => {
@@ -92,7 +95,7 @@ export class DevicesListComponent implements OnInit {
         this.devicesList.forEach(element => {
           if (element.nombre == item.Device) {
             if(item.Status=="online"){
-            element.online=true;}
+              element.online=true;}
             else{            
               element.online=false;
             }

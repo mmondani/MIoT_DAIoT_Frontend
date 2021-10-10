@@ -12,6 +12,8 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { IMqttServiceOptions, MqttModule } from "ngx-mqtt";
 import { environment as env } from '../environments/environment';
 
+
+
 const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
   hostname: env.mqtt.server,
   port: env.mqtt.port,
@@ -21,7 +23,8 @@ const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
 
 @NgModule({
   declarations: [
-    AppComponent  ],
+    AppComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

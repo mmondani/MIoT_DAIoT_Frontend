@@ -71,40 +71,44 @@
                     <div class="device-card">
                         <form class="form-inline" #f="ngForm" (ngSubmit)="updateChart()">
                             <div class="form-group">
-                                <label for="dpFrom">Desde: </label>
-                                <div class="input-group ml-2">
-                                    <input class="form-control" placeholder="yyyy-mm-dd"
+                                <div class="input-group">
+                                    <label for="dpFrom">Desde: </label>
+                                    <input class="form-control ml-2" placeholder="yyyy-mm-dd"
                                         name="dpFrom" [(ngModel)]="dpFrom" ngbDatepicker #dFrom="ngbDatepicker" [disabled]="today">
                                     <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" (click)="dFrom.toggle()" type="button">
-                                        <img src="../../../../assets/img/calendar.png" width="20px">
-                                    </button>
+                                        <button class="btn btn-outline-secondary" (click)="dFrom.toggle()" type="button">
+                                            <img src="../../../../assets/img/calendar.png" width="20px">
+                                        </button>
                                     </div>
                                 </div>
+                            </div>
 
-                                <label for="dpTo" class="ml-2">Hasta: </label>
-                                <div class="input-group ml-2">
-                                    <input class="form-control" placeholder="yyyy-mm-dd"
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label for="dpTo" class="ml-2">Hasta: </label>
+                                    <input class="form-control ml-2" placeholder="yyyy-mm-dd"
                                         name="dpTo" [(ngModel)]="dpTo" ngbDatepicker #dTo="ngbDatepicker" [disabled]="today">
                                     <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" (click)="dTo.toggle()" type="button">
-                                        <img src="../../../../assets/img/calendar.png" width="20px">
-                                    </button>
+                                        <button class="btn btn-outline-secondary" (click)="dTo.toggle()" type="button">
+                                            <img src="../../../../assets/img/calendar.png" width="20px">
+                                        </button>
                                     </div>
                                 </div>
+                            </div>
 
+                            <div class="form-group">
                                 <div class="form-check form-check-inline ml-3">
                                     <input class="form-check-input" type="checkbox" id="today" [(ngModel)]="today" name="today">
                                     <label class="form-check-label" for="today">Hoy</label>
                                 </div>
-
-                                <button 
-                                    type="submit" 
-                                    class="btn btn-outline-dark ml-3" 
-                                    [disabled]="(!dpFrom || !dpTo) && !today">
-                                    Consultar
-                                </button>
                             </div>
+
+                            <button 
+                                type="submit" 
+                                class="btn btn-outline-dark ml-3" 
+                                [disabled]="(!dpFrom || !dpTo) && !today">
+                                Consultar
+                            </button>
                         </form>
                     </div>
                 </div>

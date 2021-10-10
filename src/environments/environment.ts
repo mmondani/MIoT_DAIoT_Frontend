@@ -3,7 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  mqtt: {
+		server: 'daiot.tplinkdns.com',
+		protocol: "ws",
+		port: 9001
+	}
 };
 
 /*

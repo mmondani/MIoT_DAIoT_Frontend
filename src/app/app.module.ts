@@ -9,17 +9,28 @@ import { MainPageModule } from './components/main-page/main-page.module';
 import { LoginPageModule } from './components/login-page/login-page.module';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 
+import { IMqttServiceOptions, MqttModule } from "ngx-mqtt";
+import { environment as env } from '../environments/environment';
+
+const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
+  hostname: env.mqtt.server,
+  port: env.mqtt.port,
+  protocol: (env.mqtt.protocol === "wss") ? "wss" : "ws",
+  path: '',
+};
+
 @NgModule({
   declarations: [
-    AppComponent
-  ],
+    AppComponent  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
     MainPageModule,
-    LoginPageModule
+    LoginPageModule,
+    MqttModule.forRoot(MQTT_SERVICE_OPTIONS),
+
   ],
   providers: [
     {

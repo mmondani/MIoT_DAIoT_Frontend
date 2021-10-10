@@ -13,7 +13,9 @@
                 <div [class]="device.online? 'device-status-online':'device-status-offline'">&#11044; {{device.online? "online":"offline"}}</div>
                 <h3>{{device.nombre}}</h3>
                 <b>Tipo:</b> {{device.tipo}} <br>
-                <b>Empresa:</b> {{device.empresa}}
+                <b>Empresa:</b> {{device.empresa}}<br>
+                <b>Temperatura:</b> {{device.ultimaTele.Temperatura}}  <br>
+                <b>Humedad:</b>    {{device.ultimaTele.Humedad}} 
             </div>
         </div>
 

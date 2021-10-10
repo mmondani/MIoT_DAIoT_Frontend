@@ -1,1 +1,38 @@
-<div *ngIf="device">Dispositivo id: {{device.nombre}}</div>
+<div *ngIf="device">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <div [class]="device.online? 'device-status-online':'device-status-offline'">&#11044;
+                        {{device.online?
+                        "online":"offline"}}</div>
+                    <h3>{{device.nombre}}</h3>
+                    <b>Tipo:</b> {{device.tipo}} <br>
+                    <b>Empresa:</b> {{device.empresa}}<br>
+                    <b>Temperatura:</b> {{device.ultimaTele.Temperatura}} <br>
+                    <b>Humedad:</b> {{device.ultimaTele.Humedad}}
+                    <div><b>Canal 1:</b> {{device.canal1==true?'Activado':'Desactivado'}}
+                        <button (click)=updateChannel(1,true) *ngIf="device.canal1== false" expand="block"
+                            color="danger">Activar
+                            1</button>
+                        <button (click)=updateChannel(1,false) *ngIf="device.canal1  " expand="block"
+                            color="primary">Desactivar
+                            1</button>
+                    </div>
+                    <div><b>Canal 2:</b> {{device.canal2==true?'Activado':'Desactivado'}}
+                        <button (click)=updateChannel(2,true) *ngIf="device.canal2== false" expand="block"
+                            color="danger">Activar
+                            2</button>
+                        <button (click)=updateChannel(2,false) *ngIf="device.canal2" expand="block"
+                            color="primary">Desactivar
+                            2</button>
+                    </div>
+                </div>
+             
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <h1>Historico</h1>
+                    <canvas id="myChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+    </div>

@@ -143,7 +143,7 @@ export class DeviceDetailComponent implements OnInit, OnDestroy {
     const deviceId = this.route.snapshot.params["deviceId"];
 
     try {
-      this.devicesService.putUpdateChannel(this.device.nombre, canal, status);
+      this.devicesService.putUpdateChannel(this.device.nombre, canal, status, localStorage.getItem("email"));
     } catch (error) {
       console.log(error);
 

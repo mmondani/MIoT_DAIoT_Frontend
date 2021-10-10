@@ -56,14 +56,15 @@ export class DevicesService {
   }
 
 
-  public putUpdateChannel(nombre:string,canal: number,estado:boolean): Promise<Device> {
+  public putUpdateChannel(nombre:string,canal: number,estado:boolean, usuario: string): Promise<Device> {
     let options = {
       observe: 'response' as const
     };
     const data={
       "Device": nombre,
       "Command": estado?'on':'off',
-      "Parameter": canal==1?"1":"2"
+      "Parameter": canal==1?"1":"2",
+      "usuario": usuario
   }
     return this.http
       .post<Device>(this.CORE + "/command" ,data, options)

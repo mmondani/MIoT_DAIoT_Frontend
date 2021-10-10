@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DevicesService } from '../../../services/devices.service';
 import { Device } from '../../../services/models/device';
@@ -14,11 +14,12 @@ import { Chart } from 'node_modules/chart.js';
   templateUrl: './device-detail.component.html',
   styleUrls: ['./device-detail.component.css']
 })
-export class DeviceDetailComponent implements OnInit {
+export class DeviceDetailComponent implements OnInit, OnDestroy {
 
   device: Device;
-  subscription: Subscription;
+  subscriptionAction: Subscription;
   subscriptionStatus: Subscription;
+  subscriptionTelemetry: Subscription;
 
   logTelemetry: Array<LogTelemetry> = [];
 
@@ -98,12 +99,22 @@ export class DeviceDetailComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    if (this.subscriptionAction)
+      this.subscriptionAction.unsubscribe();
+
+    if (this.subscriptionStatus)
+      this.subscriptionStatus.unsubscribe();
+
+    if (this.subscriptionTelemetry)
+      this.subscriptionTelemetry.unsubscribe();
+  }
 
   subscribeToChannel() {
-    this.subscriptionStatus = this.eventMqtt.topic('device/action')
+    this.subscriptionAction = this.eventMqtt.topic('device/action')
       .subscribe((data: IMqttMessage) => {
         let item = JSON.parse(data.payload.toString());
-        console.log("NUEVO STATUS " + data.payload.toString());
+
         if (this.device.nombre == item.Device) {
           if (item.Valores.Canal == 1) {
             this.device.canal1 = item.Valores.Estado;
@@ -117,7 +128,7 @@ export class DeviceDetailComponent implements OnInit {
 
 
   subscribeToStatus() {
-    this.subscription = this.eventMqtt.topic('device/status')
+    this.subscriptionStatus = this.eventMqtt.topic('device/status')
       .subscribe((data: IMqttMessage) => {
         let item = JSON.parse(data.payload.toString());
         if (this.device.nombre == item.Device) {
@@ -132,7 +143,7 @@ export class DeviceDetailComponent implements OnInit {
   }
 
   private subscribeToTelemetry() {
-    this.subscription = this.eventMqtt.topic('device/telemetry')
+    this.subscriptionTelemetry = this.eventMqtt.topic('device/telemetry')
       .subscribe((data: IMqttMessage) => {
         let item = JSON.parse(data.payload.toString());
         if (this.device.nombre == item.Device) {

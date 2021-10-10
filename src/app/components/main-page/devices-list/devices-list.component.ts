@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DevicesService } from '../../../services/devices.service';
 import { Device } from 'src/app/services/models/device';
 import { EventMqttService } from 'src/app/services/event.mqtt.service.ts.service';
@@ -13,13 +13,16 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './devices-list.component.html',
   styleUrls: ['./devices-list.component.css']
 })
-export class DevicesListComponent implements OnInit {
+export class DevicesListComponent implements OnInit, OnDestroy {
 
   addDeviceForm: FormGroup;
   deviceTipos = ["Termohigrómetro"];
 
   devicesList: Array<Device> = [];
-  subscription: Subscription;
+  subscriptionStatus: Subscription;
+  subscriptionTelemetry: Subscription;
+
+
   constructor(private devicesService: DevicesService, private readonly eventMqtt: EventMqttService, private modalService: NgbModal) { }
 
   async ngOnInit() {
@@ -34,6 +37,16 @@ export class DevicesListComponent implements OnInit {
       console.log(err);
     }
   }
+
+
+  ngOnDestroy(): void {
+    if (this.subscriptionStatus)
+      this.subscriptionStatus.unsubscribe();
+
+    if (this.subscriptionTelemetry)
+      this.subscriptionTelemetry.unsubscribe();
+  }
+
 
   deviceClick(deviceName: string) {
     console.log(deviceName);
@@ -74,7 +87,7 @@ export class DevicesListComponent implements OnInit {
 
 
   private subscribeToTelemetry() {
-    this.subscription = this.eventMqtt.topic('device/telemetry')
+    this.subscriptionTelemetry = this.eventMqtt.topic('device/telemetry')
       .subscribe((data: IMqttMessage) => {
         let item = JSON.parse(data.payload.toString());
         this.devicesList.forEach(element => {
@@ -89,7 +102,7 @@ export class DevicesListComponent implements OnInit {
 
   
   private subscribeToStatus() {
-    this.subscription = this.eventMqtt.topic('device/status')
+    this.subscriptionStatus = this.eventMqtt.topic('device/status')
       .subscribe((data: IMqttMessage) => {
         let item = JSON.parse(data.payload.toString());
         this.devicesList.forEach(element => {

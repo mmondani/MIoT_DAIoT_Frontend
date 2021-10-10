@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   mqtt: {
-		server: 'daiot.tplinkdns.com',
+		server: 'localhost',
 		protocol: "ws",
 		port: 9001
 	}

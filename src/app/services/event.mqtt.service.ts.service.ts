@@ -9,19 +9,13 @@ export class EventMqttService {
 
   private endpoint: string;
 
-  constructor(
-    private _mqttService: MqttService,
-  ) {
-    this.endpoint = '';
+  constructor(private _mqttService: MqttService) {}
+
+  topic(topic: string): Observable<IMqttMessage> {
+    return this._mqttService.observe(topic);
   }
 
-  topic(deviceId: string): Observable<IMqttMessage> {
-    let topicName = `${this.endpoint}/${deviceId}`;     
-    return this._mqttService.observe(deviceId);
-  }
-
-  unsafePublish(topic: string,message:string) {
-    let topicName = '';//`/${this.endpoint}/${deviceId}`;     
+  unsafePublish(topic: string,message:string) {   
     return this._mqttService.unsafePublish(topic,message);
   }
 }

@@ -1,12 +1,14 @@
 <div *ngIf="device">
-        <div class="container">
+        <div class="container mt-3">
             <div class="row">
-                <div class="col-sm">
-                    <div [class]="device.online? 'device-status-online':'device-status-offline'">&#11044;
+                <div class="col">
+                    <h3 style="display: inline;">{{device.nombre}}</h3>
+                    <span [class]="device.online? 'device-status-online':'device-status-offline'">
+                        &#11044;
                         {{device.online?
-                        "online":"offline"}}</div>
-                    <h3>{{device.nombre}}</h3>
-                    <b>Tipo:</b> {{device.tipo}} <br>
+                        "online":"offline"}}
+                    </span> <br><br>
+                    <b >Tipo:</b> {{device.tipo}} <br>
                     <b>Empresa:</b> {{device.empresa}}<br>
                     <b>Temperatura:</b> {{device.ultimaTele.Temperatura}} <br>
                     <b>Humedad:</b> {{device.ultimaTele.Humedad}}
@@ -27,12 +29,14 @@
                             2</button>
                     </div>
                 </div>
-             
             </div>
-            <div class="row">
-                <div class="col-sm">
-                    <h1>Historico</h1>
-                    <canvas id="myChart" width="400" height="400"></canvas>
+
+            <div class="row mt-5">
+                <div class="col-md-12">
+                    <h3>Historial de mediciones</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="myChart" width="400" height="400"></canvas>
+                    </div>
                 </div>
             </div>
     </div>

@@ -89,4 +89,38 @@ export class DevicesService {
       .toPromise();
       
   }
+
+  
+  public newDevice (device: Device): Promise<void> {
+    let options = {
+      observe: 'response' as const
+    };
+
+    return this.http
+      .post<void>(this.URL + "/dispo/register/",
+        {
+          "nombre": device.nombre,
+          "tipo": device.tipo,
+          "empresa": device.empresa,
+          "variables":{
+              "temperatura":{
+                  "unidad":"ªC",
+                  "prioridad":"1"
+              },
+              "humedad":{
+                  "unidad":"%",
+                  "prioridad":2
+              },
+              "presion":{
+                  "unidad":"Hp",
+                  "prioridad":3
+              }
+          }
+        },
+        options)
+      .pipe(
+        filter(resp => resp.status == 200),
+        pluck("body"))
+      .toPromise();
+  }
 }

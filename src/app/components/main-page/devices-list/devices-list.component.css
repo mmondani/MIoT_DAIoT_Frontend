@@ -47,3 +47,8 @@
    -moz-user-select: none; /* Firefox */
    -ms-user-select: none; /* Internet Explorer/Edge */
 }
+
+.form-error {
+    font-size: 12px;
+    color: red;
+}

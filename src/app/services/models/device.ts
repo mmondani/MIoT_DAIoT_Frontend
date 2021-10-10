@@ -17,4 +17,10 @@ export class Device {
         Humedad: Number,
         ts: Number
     };
+
+    constructor(nombre: string, empresa: string, tipo: string) {
+        this.nombre = nombre;
+        this.empresa = empresa;
+        this.tipo = tipo;
+    }
 }

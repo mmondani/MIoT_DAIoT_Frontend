@@ -5,6 +5,8 @@ import { EventMqttService } from 'src/app/services/event.mqtt.service.ts.service
 
 import { IMqttMessage } from "ngx-mqtt";
 import { Subscription } from 'rxjs';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-devices-list',
@@ -13,11 +15,16 @@ import { Subscription } from 'rxjs';
 })
 export class DevicesListComponent implements OnInit {
 
+  addDeviceForm: FormGroup;
+  deviceTipos = ["Termohigrómetro"];
+
   devicesList: Array<Device> = [];
   subscription: Subscription;
-  constructor(private devicesService: DevicesService, private readonly eventMqtt: EventMqttService) { }
+  constructor(private devicesService: DevicesService, private readonly eventMqtt: EventMqttService, private modalService: NgbModal) { }
 
   async ngOnInit() {
+    this.createAddDeviceForm();
+
     try {
       this.devicesList = await this.devicesService.getDevices();
       this.subscribeToTelemetry();
@@ -32,9 +39,40 @@ export class DevicesListComponent implements OnInit {
     console.log(deviceName);
   }
 
-  addDevice() {
+  async addDevice() {
     console.log("agregar dispositivo");
+
+    try {
+      await this.devicesService.newDevice(new Device(
+        this.addDeviceForm.get("nombre").value,
+        this.addDeviceForm.get("empresa").value,
+        this.addDeviceForm.get("tipo").value
+      ));
+
+      this.devicesList = await this.devicesService.getDevices();
+    }
+    catch(err) {
+      console.log(err);
+    }
   }
+
+
+  openModal(content) {
+    // Se limpia el formulario
+    this.addDeviceForm.reset();
+
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+  }
+
+  private createAddDeviceForm() {
+    this.addDeviceForm = new FormGroup({
+      "nombre": new FormControl(null, Validators.required),
+      "empresa": new FormControl(null, Validators.required),
+      "tipo": new FormControl(null, Validators.required)
+    });
+  }
+
+
   private subscribeToTelemetry() {
     this.subscription = this.eventMqtt.topic('device/telemetry')
       .subscribe((data: IMqttMessage) => {

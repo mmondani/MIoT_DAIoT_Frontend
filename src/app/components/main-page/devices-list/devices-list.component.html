@@ -2,7 +2,7 @@
     <div class="row justify-content-center" *ngIf="devicesList.length == 0">
         <div>
             <h3>No existen dispositivos</h3>
-            <button class="btn btn-secondary btn-block" (click)=addDevice()>Agregar</button>
+            <button class="btn btn-secondary btn-block" (click)=openModal(newDeviceModal)>Agregar</button>
         </div>
         
     </div>
@@ -20,9 +20,72 @@
         </div>
 
         <div class="col-md-4">
-            <div class="add-device-card disable-select" (click)=addDevice()>
+            <div class="add-device-card disable-select" (click)=openModal(newDeviceModal)>
                 <h1>+</h1>
             </div>
         </div>
     </div>
+
+
+    <ng-template #newDeviceModal let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Agregar nuevo dispositivo</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="addDeviceForm">
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input 
+                        type="text"
+                        class="form-control"
+                        formControlName="nombre"
+                        name="nombre">
+                    <span 
+                        class="form-error" 
+                        *ngIf="addDeviceForm.controls.nombre.invalid && addDeviceForm.controls.nombre.touched">
+                        El nombre del dispositivo no puede estar vacío!
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="empresa">Empresa</label>
+                    <input 
+                        type="text"
+                        class="form-control"
+                        formControlName="empresa"
+                        name="empresa">
+                    <span 
+                        class="form-error" 
+                        *ngIf="addDeviceForm.controls.empresa.invalid && addDeviceForm.controls.empresa.touched">
+                        La empresa del dispositivo no puede estar vacía!
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="tipo">Tipo</label>
+                    <select 
+                        class="form-control"
+                        formControlName="tipo"
+                        name="tipo">
+                        <option [ngValue]="null" disabled>Elegí el tipo de dispositivo</option>
+                        <option *ngFor="let tipo of deviceTipos" [ngValue]="tipo">
+                            {{tipo}}
+                        </option>
+                    </select>
+                    <span 
+                        class="form-error" 
+                        *ngIf="addDeviceForm.controls.tipo.invalid && addDeviceForm.controls.tipo.touched">
+                        El tipo de dispositivo no puede estar vacío!
+                    </span>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close()" ngbAutofocus>Cancelar</button>
+            <button type="button" class="btn btn-primary" (click)="addDevice(); modal.close()" [disabled]="addDeviceForm.invalid">Agregar</button>
+        </div>
+    </ng-template>
 </div>

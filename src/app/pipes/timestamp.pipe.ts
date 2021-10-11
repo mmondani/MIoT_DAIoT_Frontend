@@ -3,6 +3,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({
   name: 'timestamp'
 })
+
+//transforma timestamp a fecha y hora de Argentina
 export class TimestampPipe implements PipeTransform {
 
   transform(value: Number): string {

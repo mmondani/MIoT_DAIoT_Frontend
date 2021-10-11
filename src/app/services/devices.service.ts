@@ -1,3 +1,4 @@
+// servicios de los dispositivos
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Device } from './models/device';

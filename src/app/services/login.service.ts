@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
 
@@ -33,7 +33,7 @@ export class LoginService {
 
       if (response.status == 200 && response.body) {
         console.log("Login OK. Token: " + response.body.token);
-        localStorage.setItem("token", response.body.token);
+        localStorage.setItem("token", response.body.token); //resguardo del token recibido los futuros HttpRequest
         localStorage.setItem("email", email);
         this.router.navigate(["/board"]);
       }
@@ -44,7 +44,7 @@ export class LoginService {
     }
   }
 
-  public logout () {
+  public logout () {                    //borrado de los datos de la conexión (token & email)
     localStorage.removeItem("token");
     localStorage.removeItem("email");
     this.router.navigate(["/login"]);
